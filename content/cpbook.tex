@@ -1,0 +1,36 @@
+\documentclass[9pt, a4paper, notitlepage]{extreport}
+\usepackage{cpbookpkg}
+\cpbookcontentdir{content}
+
+\university{USB}{Universidad Simón Bolívar}{usb}
+\team{Mermelada}{Jesus Wahrman, Angel Garces, Marcos Lerones}
+\contest{ACM-ICPC Latin America Super Regional 2022}{April 02, 2022}
+% \contest{\ }{\today}
+% \enablecolors
+
+\begin{document}
+	\maketeampage
+	% Small CP Book header on the first page:
+	% \maketitle{``One Last Time'' Edition}{\today}
+	\begin{multicols*}{3}
+	\thispagestyle{fancy}
+	% Table of contents, without subsections:
+	\setcounter{tocdepth}{0}
+	\tableofcontents
+
+	\cpbookchapter{contest}
+	% \cpbookchapter{math}
+	\cpbookchapter{data-structures}
+	% \cpbookchapter{numerical}
+	% \cpbookchapter{number-theory}
+	% \cpbookchapter{combinatorial}
+	% \cpbookchapter{graph}
+	% \cpbookchapter{geometry}
+	% \cpbookchapter{strings}
+	% \cpbookchapter{various}
+	\end{multicols*}
+
+	% \begin{multicols*}{3}
+	% \cpbookchapter{appendix}
+	% \end{multicols*}
+\end{document}
