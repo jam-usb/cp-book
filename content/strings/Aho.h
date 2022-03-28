@@ -1,3 +1,9 @@
+/**
+ * Author: benq
+ * Description: Aho-Corasick for fixed alphabet. For each prefix, 
+    * stores link to max length suffix which is also a prefix.
+ * Time: O(N\sum)
+ */
 struct ACfixed { // fixed alphabet
     static const int ASZ = 52;
     struct node { array<int, ASZ> to; int link; int out; bool leaf = false; vi inds;};
