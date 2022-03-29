@@ -1,5 +1,5 @@
 /**
- * Author: codeforces
+ * Author: bomba de tenedores
  * Description: code for hld, also works for subtree.
  * [in[v], out[v]) corresponds to v's subtree
  * [in[nxt[v]], in[v]] path from v to last
