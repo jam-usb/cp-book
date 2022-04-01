@@ -1,0 +1,27 @@
+/**
+ * Author: Marcos Lerones
+ * Description: 2D Polygons useful functions
+ */
+double areaPoly(vector<pt> &p){
+    double area = 0.0;
+    int n = p.size();
+    FOR(i,0,n)
+        area += cross(p[i], p[(i+1)%n]);
+    return abs(area) / 2.0;
+}
+bool above(pt a, pt p){
+    return p.y >= a.y;
+}
+bool crossesRay(pt a, pt p, pt q){
+    return (above(a,q) - above(a,p)) * (orient(a, p, q) > 0);
+}
+// if strict return 0 if a is on the boundary
+bool inPoly(vector<pt> &p, pt a, bool strict = 1){
+    int numCross = 0, n = p.size();
+    FOR(i,0,n){
+        if(onSegment(p[i], p[(i+1)%n], a))
+            return !strict;
+        numCross += crossesRay(a, p[i], p[(i+1)%n]);
+    }
+    return numCross & 1;
+}

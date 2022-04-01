@@ -18,6 +18,7 @@ void example() {
 	OrderedSet<int> t, t2;
 	t.insert(x);
 	t.erase(x);
+	*t.find_by_order(k) // get k-th element
 	t.order_of_key(x); // number of elements y in s that y < x
 	t.join(t2); // assuming T < T2 or T > T2, merge t2 into t
 }
