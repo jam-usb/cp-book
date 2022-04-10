@@ -2,7 +2,7 @@
  * Author: el vasito
  * Description: Min-cost max-flow.
  * Status: Tested on https://codeforces.com/group/j1UosVRZar/contest/287506/problem/A
- * Time: Approximately O(E^2)
+ * Time: V*F*log(N)
  */
 
 typedef ll tf;
