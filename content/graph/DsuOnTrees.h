@@ -17,7 +17,7 @@ void getsz(int v, int p) {
 }
 
 
-int cnt[maxn];
+int cnt[MAXN];
 void dfs(int v, int p, bool keep) { // O(nlogn)
     int mx = -1, bigChild = -1;
     for (auto u : g[v])
