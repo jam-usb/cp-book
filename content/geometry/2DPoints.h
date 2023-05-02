@@ -35,7 +35,7 @@ double angle(pt v, pt w){ // Range [0, pi]
     double cosTh = dot(v,w) / abs(v) / abs(w);
     return acos(max(-1.0, min(1.0, cosTh)));
 }
-// < 0 c is left of ab, > 0 c is right, = 0 colinear
+// > 0 c is left of ab, < 0 c is right, = 0 colinear
 T orient(pt a, pt b, pt c) {return cross(b-a,c-a);}
 bool inAngle(pt a, pt b, pt c, pt p){ // P is in angle BAC
     assert(orient(a,b,c) != 0);
