@@ -19,7 +19,7 @@ struct line {
     line translate(pt t) {return {v, c + cross(v, t)};}
     line shiftLeft(double d) {return {v, c + d*abs(v)};}
     pt proj(pt p) {return p - perp(v) * side(p) / sq(v);}
-    pt refl(pt p) {return p - perp(v) * 2 * side(p) / sq(v);}
+    pt refl(pt p) {return p - perp(v) * (T) 2 * side(p) / sq(v);}
 };
 
 bool inter(line l1, line l2, pt &out){
