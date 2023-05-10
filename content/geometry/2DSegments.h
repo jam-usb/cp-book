@@ -20,7 +20,7 @@ bool properInter(pt a, pt b, pt c, pt d, pt &out){
     return false;
 }
 struct cmpX{
-    bool operator()(pt a, pt b){
+    bool operator()(pt a, pt b) const {
         return mkt(a.x, a.y) < mkt(b.x, b.y);
     }
 };
