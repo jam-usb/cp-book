@@ -10,8 +10,8 @@ bool onSegment(pt a, pt b, pt p){
 }
 bool properInter(pt a, pt b, pt c, pt d, pt &out){
     double oa = orient(c, d, a),
-           ob = orient(c, d, b);
-           oc = orient(a, b, c);
+           ob = orient(c, d, b),
+           oc = orient(a, b, c),
            od = orient(a, b, d);
     if(oa*ob < 0 && oc*od < 0){
         out = (a*ob - b*oa) / (ob - oa);
