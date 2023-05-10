@@ -2,7 +2,7 @@
  * Author: Marcos Lerones
  * Description: 2D Segments useful functions
  */
-bool inDisk(pt a, pt, b, pt p){
+bool inDisk(pt a, pt, pt b, pt p){
     return dot(a-p, b-p) <= 0;
 }
 bool onSegment(pt a, pt b, pt p){
