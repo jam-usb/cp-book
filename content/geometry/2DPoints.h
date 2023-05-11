@@ -40,7 +40,7 @@ T orient(pt a, pt b, pt c) {return cross(b-a,c-a);}
 bool inAngle(pt a, pt b, pt c, pt p){ // P is in angle BAC
     assert(orient(a,b,c) != 0);
     if(orient(a,b,c) < 0) swap(b, c);
-    return orient(a, b, p) >= p && orient(a, c, p) <= 0;
+    return orient(a, b, p) >= 0 && orient(a, c, p) <= 0;
 }
 double orientAngle(pt a, pt b, pt c){
     return (orient(a,b,c) >= 0) ?
