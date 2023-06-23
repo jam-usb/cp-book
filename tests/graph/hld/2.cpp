@@ -1,3 +1,6 @@
+// https://codeforces.com/gym/103577/problem/G
+// this one also uses the subtree queries
+
 #include <bits/stdc++.h>
 using namespace std;
 
