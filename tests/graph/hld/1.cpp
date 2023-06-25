@@ -78,7 +78,7 @@ void dfsSz(int v = 0, int p = -1) {
     for (auto &u : G[v]) if (u != p) {
             dfsSz(u, v);
             SZ[v] += SZ[u];
-            if (SZ[u] > SZ[G[v][0]]) swap(u, G[v][0]);
+            if (SZ[u] > SZ[G[v][0]] || G[v][0] == p) swap(u, G[v][0]);
         }
 }
 void dfsHLD(int v = 0, int p = -1) {
