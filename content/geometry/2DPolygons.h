@@ -25,3 +25,21 @@ bool inPoly(vector<pt> &p, pt a, bool strict = 1){
     }
     return numCross & 1;
 }
+// triangle should be in clockwise order
+bool inTriangle(const vector<pt> &tri, const pt p) {
+	assert(sz(tri) == 3);
+	return orient(tri[0], tri[1], p) <= 0 && orient(tri[1], tri[2], p) <= 0 && orient(tri[2], tri[0], p) <= 0;  
+}
+// poly should be in clockwise order
+bool inConvexPoly(const vector<pt> &poly, const pt p) {
+	assert(sz(poly) >= 3);
+	int lo = 1, hi = sz(poly) - 2;
+	while(lo < hi) {
+		int mi = lo + (hi - lo + 1) / 2;
+		if (orient(poly[0], poly[mi], p) <= 0)
+			lo = mi;
+		else
+			hi = mi-1; 
+	}
+	return inTriangle({poly[0], poly[lo], poly[lo+1]}, p);
+}
