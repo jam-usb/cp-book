@@ -3,3 +3,30 @@
 \cpbookimport{CHT.h}
 \cpbookimport{DCHT.h}
 \cpbookimport{LiChaoTree.h}
+
+\begin{center}
+    \tiny
+    \begin{tabular}{c | c | c | c}
+        \makecell{\textbf{Name}} & \makecell{\textbf{Original Recurrence}} & \makecell{\textbf{Sufficient Condition}} & \makecell{\textbf{Optimized}} \\
+        \hline
+        CHT1 & \makecell{$dp[i] = min_{j<i}$ \\ $\{dp[j] + b[j]*a[i]\}$} & \makecell{$b[j] \geq b[j+1]$ \\ $(a[i] \leq a[i+1])$} & $O(n)$ \\
+        \hline
+        CHT2 & \makecell{$dp[i][j] =min_{k<j}$ \\ $\{dp[i-1][k] + b[k]*a[j]\}$} & \makecell{$b[k] \geq b[k+1]$ \\ or $(a[j] \leq a[j+1])$} & $O(kn)$ \\
+        \hline
+        D\&C & \makecell{$dp[i][j] =min_{k<j}$ \\ $\{dp[i-1][k] + C[k][j]\}$} & $A[i][j] \leq A[i][j+1]$ & $O(kn\log(n))$ \\
+        \hline
+        Knuth & \makecell{$dp[i][j] =min_{i<k<j}$ \\ $\{dp[i][k] + dp[k][j]\} + C[i][j]$} & \makecell{$A[i,j-1] \leq A[i,j]$ \\ $A[i,j] \leq A[i+1,j]$} & $O(n^2)$ \\
+    \end{tabular}
+\end{center}
+
+\begin{itemize}
+    \tiny
+    \item $A[i][j]$ -- the smallest $k$ that gives optimal asnwer, for example in $dp[i][j] = dp[i-1][k] + C[k][j]$
+    \item $C[i][j]$ -- some given cost function
+    \item We can generalize a bit in the following way: $dp[i] = min_{j<i}\{F[j] + b[j]*a[i]\}$, where $F[j]$ is computed from $dp[j]$ in constant time
+    \item it is claimed that \textbf{Knuth Optmization} is applicable if $C[i][j]$ satisfies the following:
+    \begin{itemize}
+        \item \textbf{quadrangle inequality}: $C[a][c] + C[b][d] \leq C[a][d] + C[b][c], a \leq b \leq c \leq d$
+        \item \textbf{monotonicity}: $C[b][c] <= C[a][d], a \leq b \leq c \leq d$
+    \end{itemize}
+\end{itemize}
