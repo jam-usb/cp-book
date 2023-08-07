@@ -6,13 +6,13 @@
  */
 struct ACfixed { // fixed alphabet
     static const int ASZ = 52;
-    struct node { array<int, ASZ> to; int link; int out; bool leaf = false; vi inds;};
+    struct node { array<int, ASZ> to; int link; int out; bool leaf = false; vi inds;}; // remove inds if not needed, takes a lot of memory
     vector<node> d = {{}};
     int add(string s, int ind) { // add word
         int v = 0;
         for (auto C : s) {
             if ((int)C >= 97) C -= 6; // por si es [A..Z] + [a..z]
-            int c = C - 'A';
+            int c = C - 'A'; // change this
             if (!d[v].to[c]) d[v].to[c] = sz(d), d.emplace_back();
             v = d[v].to[c];
         }
