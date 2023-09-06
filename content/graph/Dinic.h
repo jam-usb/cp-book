@@ -9,10 +9,10 @@ typedef int flow_t; // long long or int depending on the needs of the problem
 struct Dinic{
 	int nodes,src,dst;
 	vi dist,q,work;
-	struct edge {int to,rev;flow_type f,cap;};
+	struct edge {int to,rev;flow_t f,cap;};
 	vector<vector<edge>> g;
 	Dinic(int x):nodes(x),dist(x),q(x),work(x),g(x){}
-	void add_edge(int s, int t, flow_type cap){
+	void add_edge(int s, int t, flow_t cap){
 		g[s].pb((edge){t,sz(g[t]),0,cap});
 		g[t].pb((edge){s,sz(g[s])-1,0,0});
 	}
@@ -28,25 +28,25 @@ struct Dinic{
 		}
 		return dist[dst]>=0;
 	}
-	flow_type dinic_dfs(int u, flow_type f){
+	flow_t dinic_dfs(int u, flow_t f){
 		if(u==dst)return f;
 		for(int &i=work[u];i<sz(g[u]);i++){
 			edge &e=g[u][i];
 			if(e.cap<=e.f)continue;
 			int v=e.to;
 			if(dist[v]==dist[u]+1){
-				flow_type df=dinic_dfs(v,min(f,e.cap-e.f));
+				flow_t df=dinic_dfs(v,min(f,e.cap-e.f));
 				if(df>0){e.f+=df;g[v][e.rev].f-=df;return df;}
 			}
 		}
 		return 0;
 	}
-	flow_type max_flow(int _src, int _dst){
+	flow_t max_flow(int _src, int _dst){
 		src=_src;dst=_dst;
-		flow_type result=0;
+		flow_t result=0;
 		while(dinic_bfs()){
 			fill(all(work),0);
-			while(flow_type delta=dinic_dfs(src,INF))result+=delta;
+			while(flow_t delta=dinic_dfs(src,INF))result+=delta;
 		}
 		return result;
 	}
