@@ -3,7 +3,7 @@
  * Description: centroid tree
  * Time: O(N logN)
  */
-vector<int> G[MAXN]; int n;
+vi G[MAXN]; int n;
 bool tk[MAXN]; // already selected as a centroid
 int fat[MAXN]; // father in centroid decomposition
 int szt[MAXN]; // size of subtree
@@ -20,4 +20,4 @@ void cdfs(int x = 0, int f = -1, int sz = -1) { // O(nlogn)
     tk[x] = true; fat[x] = f;
     for (auto y : G[x])if (!tk[y])cdfs(y, x);
 }
-void centroid() {memset(tk, false, sizeof(tk)); cdfs();}
+void centroid() {ms(tk,false); cdfs();}
