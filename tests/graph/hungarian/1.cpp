@@ -1,17 +1,59 @@
-/**
- * Author: Andrei Lopatin.
- * Description: Hungarian Algorithm for assignment problem (min or max cost in a perfect bipartite matching)
- * Time: O(n^3) for n==m | O(n^2*m) for rectangular problems, n<m
- */
+// https://cses.fi/problemset/task/2129/
 
-typedef long double T;
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include <math.h>
+#include <string>
+#include <cstring>
+#include <set>
+#include <map>
+#include <unordered_map>
+#include <assert.h>
+#include <array>
+#include <random>
+#include <chrono>
+ 
+using namespace std;
+ 
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> pii;
+typedef pair<int, pair<int, int>> piii;
+typedef vector<int> vi;
+typedef vector<pii> vii;
+ 
+int dadsadasda;
+ 
+#define ri(a) dadsadasda=scanf("%d", &a)
+#define rii(a,b) dadsadasda=scanf("%d %d", &a, &b)
+#define riii(a,b,c) dadsadasda=scanf("%d %d %d", &a, &b, &c)
+#define rl(a) dadsadasda=scanf("%lld", &a)
+#define rll(a,b) dadsadasda=scanf("%lld %lld", &a, &b)
+#define FOR(i,n,m) for(int i=n; i<m; i++)
+#define ROF(i,n,m) for(int i=n; i>m; i--)
+#define pb push_back
+#define lb lower_bound
+#define ub upper_bound
+#define F first
+#define S second
+#define all(s) s.begin(),s.end()
+#define sz(s) (int)s.size()
+ 
+const ll LLINF = 1e18;
+const int MAXN = 210; // CAMBIAR ESTE
+//mt19937 rng(chrono::system_clock::now().time_since_epoch().count());
+ 
+typedef int T;
 typedef vector<T> vd;
-const T INF = 1e100;  // for maximum set INF to 0, and negate costs
-bool zero(T x) { return fabs(x) < 1e-9; }  // change to x==0, for ints/ll
+const T INF = 1e8;  // for maximum set INF to 0, and negate costs
+bool zero(T x) { return x==0; }  // change to x==0, for ints/ll
 struct Hungarian {
     int n;
     vector<vd> cs;
-    vi L, R; // here are the matches
+    vi L, R;
     Hungarian(int N, int M) : n(max(N, M)), cs(n, vd(n)), L(n), R(n) {
         FOR(x, 0, N) FOR(y, 0, M) cs[x][y] = INF;
     }
@@ -76,3 +118,16 @@ struct Hungarian {
         return value;
     }
 };
+
+ 
+int main() {
+    int n; ri(n);
+    Hungarian h(n,n);
+    FOR(i,0,n) FOR(j,0,n) {
+        int a; ri(a);
+        h.set(i,j,a);
+    }
+    cout << h.solve() << endl;
+    FOR(i,0,n) cout << i + 1 << " " << h.L[i] + 1 << endl;
+    return 0;
+}
