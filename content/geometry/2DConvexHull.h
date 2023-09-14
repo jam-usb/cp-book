@@ -1,3 +1,8 @@
+/**
+ * Author: Marcos Lerones
+ * Description: 2D Circlues useful functions
+*/
+
 T cross(pt v, pt w) {return (conj(v)*w).y;}
 T orient(pt a, pt b, pt c) {return cross(b-a, c-a);}
  
