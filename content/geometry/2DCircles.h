@@ -14,7 +14,6 @@ int circleLine(pt o, double r, line l, pair<pt,pt> &out) {
     if (h2 >= 0) { 
         pt p = l.proj(o);
         pt h = l.v*sqrt(h2)/abs(l.v); 
-        length h
         out = {p-h, p+h};
     }
     return 1 + sgn(h2);
