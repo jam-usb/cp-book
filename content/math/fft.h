@@ -16,7 +16,7 @@ struct cd{
     cd operator /(ld z) {return cd(x/z, y/z);}
 };
 void FFT(cd *a, int rev){
-    int n = MAXN;
+    int n = MAXN; // careful with this
     for(int i = 1, j = 0; i < n; i++){
         int k = n >> 1;
         for(; j & k; k >>= 1) j ^= k;
@@ -40,6 +40,6 @@ void FFT(cd *a, int rev){
 }
 void mult(cd *p, cd *q, cd *r){
     FFT(p,1); FFT(q,1);
-    FOR(i,0,MAXN) r[i] = p[i]*q[i];
+    FOR(i,0,MAXN) r[i] = p[i]*q[i]; // careful with maxn
     FFT(r,-1);
 }
