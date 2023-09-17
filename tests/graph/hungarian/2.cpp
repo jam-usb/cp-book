@@ -1,17 +1,46 @@
-/**
- * Author: Jesus Wahrman 
- * Description: Hungarian Algorithm for assignment problem (min or max cost in a perfect bipartite matching)
- * Time: O(N^3) for N = max(n,m)
- */
+// https://codeforces.com/gym/103640/problem/H
 
-typedef long double T;
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef pair<int,int> ii;
+typedef vector<int> vi;
+typedef vector<ii> vii;
+
+int das;
+#define FOR(i,n,m) for(int i = n; i < (int)m; i++)
+#define ROF(i,n,m) for(int i = n; i > (int)m; i--)
+#define ms(obj,val) memset(obj,val,sizeof(obj))
+#define ri(a) das=scanf("%d", &a)
+#define rii(a,b) ri(a), ri(b)
+#define lri(a) scanf("%lld", &a)
+#define lrii(a,b) lri(a), lri(b)
+#define all(x) x.begin(),x.end()
+#define sz(x) (int)(x).size()
+#define pb push_back
+#define S second
+#define F first
+
+const ll INFLL = 1e18;
+const int MOD = 1e9+7;
+const int MAXN = 510+5;
+
+void fastIO() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+}
+
+
+typedef long long T;
+typedef vector<int> vi;
 typedef vector<T> vd;
-const T INF = 1e100;  // for maximum set INF to 0, and negate costs
-bool zero(T x) { return fabs(x) < 1e-9; }  // change to x==0, for ints/ll
+const T INF = 1e15;  // for maximum set INF to 0, and negate costs
+bool zero(T x) { return x == 0; }  // change to x==0, for ints/ll
 struct Hungarian {
     int n;
     vector<vd> cs;
-    vi L, R; // here are the matches
+    vi L, R;
     Hungarian(int N, int M) : n(max(N, M)), cs(n, vd(n)), L(n), R(n) {
         FOR(x, 0, N) FOR(y, 0, M) cs[x][y] = INF;
     }
@@ -42,14 +71,13 @@ struct Hungarian {
             for (;;) {
                 j = -1;
                 FOR(k, 0, n)
-                    if (!sn[k] && (j == -1 || ds[k] < ds[j])) 
-                        j = k;
+                    if (!sn[k] && (j == -1 || ds[k] < ds[j])) j = k;
                 sn[j] = 1;
                 i = R[j];
                 if (i == -1) break;
                 FOR(k, 0, n)
                     if (!sn[k]) {
-                        auto new_ds = ds[j]+cs[i][k]-u[i]-v[k];
+                        auto new_ds = ds[j] + cs[i][k] - u[i] - v[k];
                         if (ds[k] > new_ds) {
                             ds[k] = new_ds;
                             dad[k] = j;
@@ -77,3 +105,27 @@ struct Hungarian {
         return value;
     }
 };
+
+
+int N;
+int b[MAXN][MAXN]; 
+
+int main(){
+    ri(N);
+    FOR(i,1,N+1) FOR(j,1,N+1) ri(b[i][j]);
+    if (N & 1) N++;
+
+    
+    Hungarian h(N/2, N/2);
+
+    for(int i = 1; i < N; i += 2) {
+        for(int j = 1; j < N; j += 2) {
+            h.set(i/2, j/2, b[i][j-1] + b[i][j+1]);
+        }
+    }
+
+    
+    cout << h.solve() << endl;
+
+    return 0;
+}
