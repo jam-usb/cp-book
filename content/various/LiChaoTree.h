@@ -2,7 +2,6 @@
  * Author: bomba de tenedores
  * Description: Li Chao Tree
 */
-#include <complex>
 
 // Se cambia T dependiendo del caso
 typedef ll T;
