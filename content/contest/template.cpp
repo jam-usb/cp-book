@@ -23,6 +23,7 @@ const int INF = 0x3f3f3f3f;
 const ll INFLL = 1e18;
 const int MOD = 1e9+7;
 const int MAXN = 2e5+5;
+mt19937 rng((uint32_t)chrono::steady_clock::now().time_since_epoch().count()); 
 
 void fastIO() {
 	ios_base::sync_with_stdio(false);
