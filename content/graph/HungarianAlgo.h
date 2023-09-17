@@ -42,13 +42,14 @@ struct Hungarian {
             for (;;) {
                 j = -1;
                 FOR(k, 0, n)
-                    if (!sn[k] && (j == -1 || ds[k] < ds[j])) j = k;
+                    if (!sn[k] && (j == -1 || ds[k] < ds[j])) 
+                        j = k;
                 sn[j] = 1;
                 i = R[j];
                 if (i == -1) break;
                 FOR(k, 0, n)
                     if (!sn[k]) {
-                        auto new_ds = ds[j] + cs[i][k] - u[i] - v[k];
+                        auto new_ds = ds[j]+cs[i][k]-u[i]-v[k];
                         if (ds[k] > new_ds) {
                             ds[k] = new_ds;
                             dad[k] = j;
