@@ -6,8 +6,8 @@
 typedef double T; // long double, Rational, double + mod<P>...
 const T EPS = 1e-8;
 
-vector<int> X,Y;
-vector<vector<T> > A;
+vi X,Y;
+vector<vector<T>> A;
 vector<T> b,c;
 T z;
 int n,m;
@@ -29,8 +29,8 @@ pair<T,vector<T> > simplex( // maximize c^T x s.t. Ax<=b, x>=0
         vector<vector<T> > _A, vector<T> _b, vector<T> _c){
     // returns pair (maximum value, solution vector)
     A=_A;b=_b;c=_c;
-    n=b.size();m=c.size();z=0.;
-    X=vector<int>(m);Y=vector<int>(n);
+    n=sz(b);m=sz(c);z=0.;
+    X=vi(m);Y=vi(n);
     FOR(i,0,m)X[i]=i;
     FOR(i,0,n)Y[i]=i+m;
     while(1){
