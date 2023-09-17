@@ -1,6 +1,7 @@
 /**
+ * Author: Jesus Wahrman 
  * Description: Hungarian Algorithm for assignment problem (min or max cost in a perfect bipartite matching)
- * Time: O(n^3) for n==m | O(n^2*m) for rectangular problems, n<m
+ * Time: O(N^3) for N = max(n,m)
  */
 
 typedef long double T;
