@@ -1,0 +1,7 @@
+ - Maximum Independent Set NO se puede hacer con una 
+2-coloracion. Usar flujo o Bipartite Matching o Algoritmo 
+Hungaro
+ - Centro de masa de un triangulo es el promedio entre sus 
+3 vertices. Centro de masa de un poligono es el promedio 
+ponderado de una los centros de masa de los triangulos 
+que lo componen (algoritmo similar a calcular el area)

@@ -4,6 +4,11 @@
  * Time: $O(\min(E^{1/2}, V^{2/3})E)$ if $U = 1$; $O(\sqrt{V}E)$ for bipartite matching.
  * Status: Tested on CF-498C
  */
+/* Problemas de flujo:
+ * - Minimo corte S-T = Maximo flujo S-T. Para hallar los edges del corte se buscan los nodos
+ * alcanzables desde S en el grafo residual, todos los edges de nodos alcanzables a inalcanzables
+ * pertenecen al corte.
+*/
 
 typedef int flow_t; // long long or int depending on the needs of the problem
 struct Dinic{
