@@ -31,3 +31,20 @@
         \item \textbf{monotonicity}: $C[b][c] <= C[a][d], a \leq b \leq c \leq d$
     \end{itemize}
 \end{itemize}
+
+\cpbookimport[-l raw]{Notes.txt}
+
+String Matching with FFT (wildcards + big alphabet):
+
+\begin{itemize}
+    \item Find all ocurrences of $P$ in $T$. We use the following polynomials:
+    \[A(x) = a_0x^0 + \dots + a_{n-1}x^{n-1}, \quad n = |T|\]
+    \[a_j = cos(\alpha_j) + i \cdot sin(\alpha_j), \quad \alpha_j = \frac{2 \pi T_j}{26}\]
+    \[B(x) = b_0x^0 + \dots + b_{m-1}x^{m-1}, \quad m = |P|\]
+    \[b_j = cos(\beta_j) - i \cdot sin(\beta_j), \quad \beta_j = \frac{2 \pi P_{m-j-1}}{26}\]
+
+    \item Multiply $C(x) = A(x) \cdot B(x)$, there is a match at index $i$ iff $c_{m-1+i} = m$.
+
+    \item If we have wild cards in $P$, $b_i = 0$ iff $P_{m-1-i} = ?$. If there are $x$ wildcards
+    in $P$, then there is a match at index $i$ iff $c_{m-1+i} = m-x$
+\end{itemize}
