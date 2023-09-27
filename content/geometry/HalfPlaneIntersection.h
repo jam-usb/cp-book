@@ -4,67 +4,73 @@
  * is either emtpy, a convex polygon or infinite.
  * Time: $O(n\log{n})$
  */
-// Redefine epsilon and infinity as necessary. Be mindful of precision errors.
-const long double eps = 1e-9, inf = 1e9;
 
-// Basic point/vector struct.
-struct Point {
+ /*
+  * Common problems:
+  * - Convex polygon intersection: treat each side as a halfplane and intersect all
+  * - Visibility on plane: find a point that can see all sides of a polygon, find a point 
+  *   that can see a set of point in a specific order
+  * - Check in BS: Usually problem needs to translate the halfplanes by some param and
+  *   find if the intersection is empty. This works to find the biggest circumference that
+  *   can be inscribed in a convex polygon
+  * - 2D Linear Programming: find a solution to a set of inequations of the form Ax + By + C <= 0
+  */
+const T eps = 1e-9, inf = 1e9;
 
-    long double x, y;
-    explicit Point(long double x = 0, long double y = 0) : x(x), y(y) {}
-
-    // Addition, substraction, multiply by constant, cross product.
-
-    friend Point operator + (const Point& p, const Point& q) {
-        return Point(p.x + q.x, p.y + q.y);
-    }
-
-    friend Point operator - (const Point& p, const Point& q) {
-        return Point(p.x - q.x, p.y - q.y);
-    }
-
-    friend Point operator * (const Point& p, const long double& k) {
-        return Point(p.x * k, p.y * k);
-    }
-
-    friend long double cross(const Point& p, const Point& q) {
-        return p.x * q.y - p.y * q.x;
+struct Halfplane : public line {
+    using line::line;
+    bool out(pt p) { return side(p) < -eps; }
+    bool operator<(const Halfplane &b) const { 
+        return angleCmp(v, b.v); 
     }
 };
 
-// Basic half-plane struct.
-struct Halfplane {
+pt isect(Halfplane &a, Halfplane &b) {
+    pt p; assert(inter(a, b, p)); // No parallel lines
+    return p;
+}
 
-    // 'p' is a passing point of the line and 'pq' is the direction vector of the line.
-    Point p, pq;
-    long double angle;
+vector<pt> halfplaneInters(vector<Halfplane> hplanes) {
+    vector<pt> box = { // bounding box
+        {inf, inf}, {-inf, inf}, 
+        {-inf, -inf}, {inf, -inf}
+    };
+    FOR(i,0,4) hplanes.pb(Halfplane(box[i], box[(i+1)%4]));
 
-    Halfplane() {}
-    Halfplane(const Point& a, const Point& b) : p(a), pq(b - a) {
-        angle = atan2l(pq.y, pq.x);
+    sort(all(hplanes));
+    { // remove parallel planes
+        vector<Halfplane> nps;
+        for (auto hp : hplanes) {
+            if (!sz(nps) || cross(nps.back().v, hp.v) > eps) {
+                nps.pb(hp); continue;
+            }
+
+            if (hp.out(nps.back().proj({0,0}))) nps.back()=hp;
+        }
+        swap(hplanes, nps);
     }
 
-    // Check if point 'r' is outside this half-plane.
-    // Every half-plane allows the region to the LEFT of its line.
-    bool out(const Point& r) {
-        return cross(pq, r - p) < -eps;
+    deque<Halfplane> poly;
+    for (auto hp : hplanes) {
+        while (sz(poly) > 1 && hp.out(isect(poly.back(), poly[sz(poly)-2]))) poly.pop_back();
+        while (sz(poly) > 1 && hp.out(isect(poly[0], poly[1]))) poly.pop_front();
+
+        if (sz(poly) && fabsl(cross(hp.v,poly.back().v)) < eps) 
+            return {};
+
+        poly.pb(hp);
     }
 
-    // Comparator for sorting.
-    // If the angle of both half-planes is equal, the leftmost one should go first.
-    bool operator < (const Halfplane& e) const {
-        if (fabsl(angle - e.angle) < eps) return cross(pq, e.p - p) < 0;
-        return angle < e.angle;
+    while (sz(poly) > 2 && poly[0].out(isect(poly.back(), poly[sz(poly)-2]))) poly.pop_back();
+    while (sz(poly) > 2 && poly.back().out(isect(poly[0], poly[1]))) poly.pop_front();
+
+    if (sz(poly) < 3) return {};
+
+    vector<pt> ret; // CAN HAVE REPEATED POINTS!!!
+    FOR(i,0,sz(poly)) {
+        int j = (i+1) % sz(poly);
+        ret.pb(isect(poly[i], poly[j]));
     }
 
-    // We use equal comparator for std::unique to easily remove parallel half-planes.
-    bool operator == (const Halfplane& e) const {
-        return fabsl(angle - e.angle) < eps;
-    }
-
-    // Intersection point of the lines of two half-planes. It is assumed they're never parallel.
-    friend Point inter(const Halfplane& s, const Halfplane& t) {
-        long double alpha = cross((t.p - s.p), t.pq) / cross(s.pq, t.pq);
-        return s.p + (s.pq * alpha);
-    }
-};
+    return ret; 
+}

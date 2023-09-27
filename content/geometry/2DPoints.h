@@ -10,7 +10,7 @@ typedef complex<T> pt;
 const double PI = 2*acos(0.0);
 
 
-int sgn(T a) {return (a < 0) - (a > 0);}
+int sgn(T a) {return (a > 0) - (a < 0);}
 T sq(pt p) {return p.x*p.x + p.y*p.y;}
 double abs(pt p) {return sqrt(sq(p));}
 
@@ -58,13 +58,14 @@ bool isConvex(vector<pt> p){
 }
 
 // Polar Sort
-bool half(pt p){
-    assert(p.x != 0 || p.y != 0);
-    return p.y > 0 || (p.y == 0 && p.x < 0);
+int half(pt p) { return p.y != 0 ? sgn(p.y) : -sgn(p.x); }
+bool angleCmp(pt v, pt w) {
+    return mkt(half(v), 0, sq(v)) <
+           mkt(half(w), cross(v, w), sq(w));
 }
 void polarSort(vector<pt> &v) {
     sort(all(v), [](pt v, pt w) {
         return mkt(half(v), 0, sq(v)) <
                mkt(half(w), cross(v, w), sq(w));
-    }
+    })
 }
