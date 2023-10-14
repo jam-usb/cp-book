@@ -10,12 +10,12 @@ X y Y, existe un matching que abarca todos los nodos de X
 ssi para cada subconjunto W de X, la cantidad de nodos 
 adyacentes a W (en Y) es mayor o igual a la cantidad 
 de nodos en W.
- - Teorema de Dilworth: El tamaño de la anti-cadena más
-larga en un DAG es igual al mínimo numero de cadenas que
+ - Teorema de Dilworth: El tamano de la anti-cadena mas
+larga en un DAG es igual al minimo numero de cadenas que
 se requiere para particionar el DAG. 
- - Teorema de Mirsky: El tamaño de la cadena más larga es
-es igual al mínimo número de anti-cadenas que se requieren
+ - Teorema de Mirsky: El tamano de la cadena mas larga es
+es igual al minimo numero de anti-cadenas que se requieren
 para particionar el DAG.
- - Para hallar la cadena más larga de un DAG se hace Max
+ - Para hallar la cadena mas larga de un DAG se hace Max
 Bipartite Matching para encontrar el siguente nodo para 
 cada nodo.
